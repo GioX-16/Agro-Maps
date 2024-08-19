@@ -147,6 +147,65 @@ nav{
     display: none;
 }
 
+@media (width > 768px){
+    nav{
+        position: static;
+        padding: 2rem 1rem;
+        max-width: var(--max-width);
+        margin-inline: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem   ;
+    }
+
+    .nav_header{
+        flex: 1;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    .nav_logo .logo{
+        color: var(--primary-color-dark);
+    }
+
+    .nav_menu_btn{
+        display: none;
+    }
+
+    .nav_links{
+        position: static;
+        width: fit-content;
+        padding: 0;
+        flex-direction: row;
+        background-color: transparent;
+        transform: none !important;
+    }
+
+    .nav_links a{
+        color: var(--text-dark);
+    }
+
+    .nav_links a:hover{
+        color: var(--primary-color);
+    }
+
+    .nav_links li:last-child{
+        display: none;
+    }
+
+    .nav_btns{
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .nav_btns .btn{
+        padding: .75rem 2rem;
+        background-color: var(--primary-color);
+    }
+}
+
 
 
 /* Home Page */
