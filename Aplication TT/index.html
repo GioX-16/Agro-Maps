@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
     <link rel="stylesheet" href="Styles/stylees.css">
     <title>Trustrace</title>
 </head>
 <body>
 
     <!-- SECTION Header -->
-    <section id="header">
-        <a href="#"><img src="/imgs/logoG.png" class="logo" alt=""></a>   
-
-        <div>
-            <ul id="navbar">
-                <li><a class="active" href="index.html">Inicio</a></li>
-                <li><a href="#hero2">Inicio</a></li>
-                <li><a href="#product1">Nosotros</a></li>
-                <li><a href="#contacto1">Mapa</a></li>
-                <li><a href="Registro.html">Registrar</a></li>
-            </ul>
-            <!-- <button class="navbar-button">Botón</button> -->
+    <nav>
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="#" class="logo">TRUS-Trace</a>
+            </div>
+            <div class="nav_menu_btn" id="menu-btn">
+                <i class="ri-menu-line"></i>
+            </div>
         </div>
-    </section>
+        <ul class="nav_links" id="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#Nosotros">Nosotros</a></li>
+            <li><a href="#Mapa">Mapa</a></li>
+            <li><a href="#Contacto">Contacto</a></li>
+        </ul>
+        <div class="nav_btns">
+            <button class="btn">Registrarse</button>
+        </div>
+    </nav>
 
     <!-- SECTION Home-Video  -->
     <section id="hero">
         <video autoplay loop muted>
-            <source src="/Videos/Backone.mp4" type="video/mp4">
+            <source src="/Videos/Backone.mp4"    type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
         </video>
     </section>
