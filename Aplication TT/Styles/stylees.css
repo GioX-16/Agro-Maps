@@ -56,12 +56,12 @@ body{
 
 .header .nav-links a{
     font-size: 700;
-    color: rgb(29, 242, 50);
+    color: rgb(9, 6, 6);
     text-decoration: none;
 }
 
 .header .nav-links li a:hover{
-    color: rgb(0, 0, 0);
+    color: rgb(72, 97, 238);
 }
 
 .header .btn button{
