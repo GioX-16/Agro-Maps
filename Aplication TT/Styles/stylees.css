@@ -61,14 +61,14 @@ body{
 }
 
 .header .nav-links li a:hover{
-    color: rgb(72, 97, 238);
+    color: rgb(87, 237, 61);
 }
 
 .header .btn button{
     font-weight: 700;
     color:rgb(255, 255, 255);
     padding: 9px 25px;
-    background: rgb(52, 114, 206);
+    background: rgb(70, 206, 52);
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -76,7 +76,7 @@ body{
 }
 
 .header .btn button:hover{
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(62, 83, 245);
     color: rgb(225, 218, 219);  
     transform: scale(1.1);
 }
