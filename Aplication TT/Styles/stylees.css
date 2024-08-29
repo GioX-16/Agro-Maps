@@ -133,6 +133,7 @@ button.normal{
     transition: 0.2s;
 }
 
+
 #banner{
     display: flex;
     flex-direction: column;
