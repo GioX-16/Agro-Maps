@@ -220,6 +220,14 @@ button.normal{
     text-align: center;
 }
 
+.footer1 .grupo-2{
+    background-color: seagreen;
+    color: #fff;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    padding: 45px 0px;
+}
 
 
 
