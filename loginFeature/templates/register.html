@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title%}
+Register
+{% endblock %}
+
+{% block css%}
+    <link rel="stylesheet" href="{% static '/Styles/stylees.css' %}">
+{% endblock %}
+
+{% block content %}
+        <!-- SECTION DE FORMULARIO PARA REGISTER  -->
+        
+    <div class="formulario">
+        <h1>Registro de Usuario</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="emailname">
+                <input type="text" name="username" required>
+                <label>Nombre de Usuario</label>
+            </div>
+            <div class="emailname">
+                <input type="email" name="email" required>
+                <label>Correo Electrónico</label>
+            </div>
+            <div class="emailname">
+                <input type="password" name="password1" required>
+                <label>Contraseña</label>
+            </div>
+            <div class="emailname">
+                <input type="password" name="password2" required>
+                <label>Confirmar Contraseña</label>
+            </div>
+            <div class="texto">Dale Maje Breve!! </div>
+            <input type="submit" value="Registrar">
+            <div class="volver">
+                Volver al <a href="{% url 'login' %}">Login</a>
+            </div>
+        </form>
+    </div>
+
+    {% block js %}
+    {% endblock %}
+
+{% endblock %}

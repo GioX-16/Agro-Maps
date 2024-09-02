@@ -21,6 +21,6 @@ from loginFeature import views as login_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('landingPage.urls')),
-    path('login/', include('Login.urls')),
+    path('login/', include('loginFeature.urls')),
     path('logout/', login_views.user_logout, name='logout'),
 ]
