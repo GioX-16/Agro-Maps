@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{% static '/Styles/stylees.css' %}">
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+            rel="stylesheet" />
+
+    </head>
+    <body>
+
+        <!-- SECTION Header -->
+
+        <section class="home" id="home1">
+
+            <header class="header">
+                <div class="logo">
+                    <img src="{% static '/imgs/AgroMps-1.png' %}" alt="logo de la marca">
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#home1">Inicio</a></li>
+                        <li><a href="#banner">Nosotros</a></li>
+                        <li><a href="#mapa">Mapas</a></li>
+                        <li><a href="#banner">Servicios</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </nav>
+                <a class="btn"><button>Registrarse</button></a>
+            </header>
+        </section>
+
+
+        {% block content %}
+        <!-- contenido de la pagina -->
+        {% endblock %}
+
+
+        <!-- Section Footer -->
+        <footer class="footer1">
+            <div class="grupo-1">
+                <div class="box">
+                    <figure>
+                        <a href="#">
+                            <img src="{% static '/imgs/UNVAL2.png' %}" alt="logo de UVAL">
+                        </a>
+                    </figure>
+                </div>
+                <div class="box">
+                    <h2>SOBRE NOSOTROS</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        facilis earum maxime ratione?</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Praesentium, nulla alias? Dolores!</p>
+                </div>
+                <div class="box">
+                    <h2>SIGUENOS EN REDES</h2>
+                    <div class="red-social">
+                        <a target="noopener"
+                            href="https://www.instagram.com/gio_sanx/?hl=es-es"><i
+                                class="fa-brands fa-square-instagram"></i></a>
+                        <a target="noopener"
+                            href="https://www.facebook.com/g2.giox1"><i
+                                class="fa-brands fa-square-facebook"></i></a>
+                        <a target="noopener" href="https://x.com/sandinoG1X"><i
+                                class="fa-brands fa-square-x-twitter"></i></a>
+                        <a target="noopener"
+                            href="https://github.com/GioX-16"><i
+                                class="fa-brands fa-square-github"></i></a>
+                        <a target="noopener"
+                            href="https://www.threads.net/@gio_sanx"><i
+                                class="fa-brands fa-square-threads"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="grupo-2">
+                <samp>&copy; 2024 <b>UNI-VERSE-ALL</b> Todos los derechos
+                    Reservados</samp>
+            </div>
+        </footer>
+
+        <!-- LINK DE LOS ICONOS -->
+        <script src="https://kit.fontawesome.com/001e655f1c.js"
+            crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="{% static 'JavaScripts/index.js' %}">
+    </body>
+</html>
