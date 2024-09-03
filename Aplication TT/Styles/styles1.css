@@ -198,6 +198,21 @@ video {
 .nosotros-content .Leer-Mas:hover{
     background-color: seagreen;
 }
+@media screen and (max-withd: 768px) {
+    .heading{
+        padding: 0px 20px;
+    }
+    .heading h1{
+        font-size: 36px;
+    }
+    .heading p{
+        font-size: 17px;
+        margin-bottom: 0px;
+    }
+    .container{
+        padding: 0px;
+    }
+}
 
 /* /seccion mapa / */
 
