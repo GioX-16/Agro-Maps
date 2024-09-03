@@ -14,7 +14,7 @@ html{
 }
 
 body{
-    background-color: #cfcfc9;
+    background-color: hsl(0, 0%, 99%);
 }
 
 .header{
@@ -104,4 +104,192 @@ video {
     margin: 0 auto;
 }
 
+/* SECTION NOSOTROS  */
+
+.heading{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.heading h1{
+    font-size: 50px;
+    color: #000;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.heading h1::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    display: block;
+    margin: 0 auto;
+    background-color: seagreen;
+}
+
+.heading p{
+    font-size: 18px;
+    color: rgb(5, 5, 5);
+    margin-bottom: 35px;
+} 
+
+.container{
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.nosotros{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nosotros-img{
+    flex: 1;
+    margin-right: 40px;
+    overflow: hidden;
+}
+.nosotros-img img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.nosotros-img:hover img{
+    transform: scale(1.2);
+}
+.nosotros-content{
+    flex: 1;
+}
+
+.nosotros-content h2{
+    font-size: 23px;
+    margin-bottom: 20px;
+    color: chocolate;
+}
+
+.nosotros-content p{
+    font-size: 18px;
+    line-height: 1.5;
+    color: rgb(0, 0, 0);
+}
+
+.nosotros-content .Leer-Mas{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: chocolate;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-top: 25px;
+    transition: 0.3s ease;
+}
+
+.nosotros-content .Leer-Mas:hover{
+    background-color: seagreen;
+}
+
+/* /seccion mapa / */
+
+.map-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #ccc; /* Color de fondo mientras carga */
+}
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+
+
+/* SECTION FOOTER */
+
+.footer1{
+    width: 100%;
+    background-color: #143f28;
+}
+
+.footer1 .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+}
+
+.footer1 .grupo-1 .box figure{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer1 .grupo-1 .box figure img{
+    width: 250px;
+}
+
+.footer1 .grupo-1 .box h2{
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.footer1 .grupo-1 .box p{
+    color: #efefee;
+    margin-bottom: 0px;
+}
+
+.footer1 .grupo-1 .red-social a{
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    margin-right: 10px;
+    background-color: #000000;
+    text-align: center;
+    transition: all 300ms ease; 
+}
+
+.footer1 .grupo-1 .red-social a:hover{
+    color: seagreen;
+}
+
+.footer1 .grupo-2{
+    background-color: seagreen;
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.footer1 .grupo-2{
+    background-color: seagreen;
+    color: #fff;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    padding: 45px 0px;
+}
 
