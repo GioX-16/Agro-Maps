@@ -1,29 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'nunito', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 20px;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     background-color: #cfcfc9;
 }
 
-.header{
+.header {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
     background-color: transparent;
-    /* background: linear-gradient(to right, #add4e3, #ffffff); */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,47 +29,47 @@ body{
     padding: 35px 10%;
 }
 
-.header .logo{
+.header .logo {
     cursor: pointer;
 }
 
-.header .logo img{
+.header .logo img {
     height: 95px;
     width: auto;
-    transition: all 0.3;
+    transition: all 0.3s;
 }
 
-.header .logo img:hover{
+.header .logo img:hover {
     transform: scale(1.2);
 }
 
-.header .nav-links{
+.header .nav-links {
     list-style: none;
 }
 
-.header .nav-links li{
+.header .nav-links li {
     display: inline-block;
     padding: 0 20px;
 }
 
-.header .nav-links li:hover{
+.header .nav-links li:hover {
     transform: scale(1.1);
     cursor: pointer;
 }
 
-.header .nav-links a{
+.header .nav-links a {
     font-size: 700;
     color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
-.header .nav-links li a:hover{
+.header .nav-links li a:hover {
     color: rgb(228, 229, 231);
 }
 
-.header .btn button{
+.header .btn button {
     font-weight: 700;
-    color:rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     padding: 9px 25px;
     background: seagreen;
     border: none;
@@ -80,9 +78,9 @@ body{
     transition: all 0.3s ease 0s;
 }
 
-.header .btn button:hover{
+.header .btn button:hover {
     background-color: rgb(62, 83, 245);
-    color: rgb(225, 218, 219);  
+    color: rgb(225, 218, 219);
     transform: scale(1.1);
 }
 
@@ -91,7 +89,7 @@ body{
 video {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
 }
 
 .video-container {
@@ -104,16 +102,17 @@ video {
     margin: 0 auto;
 }
 
-/* /seccion mapa / */
+/* Sección Mapa */
 
 .map-container {
     position: relative;
-    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     max-width: 100%;
-    background: #ccc; /* Color de fondo mientras carga */
+    background: #ccc;
 }
+
 .map-container iframe {
     position: absolute;
     top: 0;
@@ -123,48 +122,53 @@ video {
     border: 0;
 }
 
-/* /seccion del formulario / */
-/* Estilos para el contenedor del formulario */
+/* Sección del Formulario */
+
 .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Altura completa de la ventana */
-    background-image: url('../imgs/BackgroundAGRO.jpg'); /* Cambia la ruta por la de tu imagen */
+    height: 100vh;
+    background-image: url('../imgs/BackgroundAGRO.jpg');
     background-size: cover;
     background-position: center;
-  }
-  
-  /* Estilos para el formulario */
-  .formulario {
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+}
+
+.formulario {
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 400px;
     text-align: center;
-  }
-  
-  .formulario h1 {
+}
+
+.formulario h1 {
     margin-bottom: 1.5rem;
-  }
-  
-  .input-field {
+}
+
+.input-field {
     margin-bottom: 1.5rem;
     position: relative;
-  }
-  
-  .input-field input {
+}
+
+.input-field input {
     width: 100%;
     padding: 0.75rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-  }
-  
-  .input-field label {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+.input-field label {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -172,24 +176,24 @@ video {
     color: #888;
     pointer-events: none;
     transition: 0.3s;
-  }
-  
-  .input-field input:focus + label,
-  .input-field input:not(:placeholder-shown) + label {
+}
+
+.input-field input:focus + label,
+.input-field input:not(:placeholder-shown) + label {
     top: 0;
     left: 5px;
     font-size: 0.75rem;
     color: #333;
-  }
-  
-  .recordar {
+}
+
+.recordar {
     margin-bottom: 1.5rem;
     font-size: 0.875rem;
     color: #007bff;
     text-decoration: underline;
-  }
-  
-  .formulario input[type="submit"] {
+}
+
+.formulario input[type="submit"] {
     width: 100%;
     padding: 0.75rem;
     background-color: #007bff;
@@ -198,21 +202,36 @@ video {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .formulario input[type="submit"]:hover {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.formulario input[type="submit"]:hover {
     background-color: #0056b3;
-  }
-  
-  .registrarse {
+    transform: scale(1.05);
+}
+
+.registrarse {
     margin-top: 1.5rem;
     font-size: 0.875rem;
-  }
-  
+}
 
-/* SECTION BANNER  */
+/* Responsive Design */
 
-button.normal{
+@media (max-width: 768px) {
+    .formulario {
+        padding: 1rem;
+        box-shadow: none;
+    }
+
+    .form-container {
+        height: auto;
+        padding: 50px;
+    }
+}
+
+/* SECTION BANNER */
+
+button.normal {
     font-size: 14px;
     font-weight: 600;
     padding: 15px 30px;
@@ -225,8 +244,7 @@ button.normal{
     transition: 0.2s;
 }
 
-
-#banner{
+#banner {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -236,38 +254,37 @@ button.normal{
     width: 100%;
     height: 40vh;
     background-size: cover;
-    background-position: center; 
+    background-position: center;
 }
 
-#banner h4{
+#banner h4 {
     color: #132516;
     font-size: 20px;
 }
 
-#banner h2{
+#banner h2 {
     color: #e8f6ea;
     font-size: 40px;
     padding: 10px 0;
 }
 
-#banner h2 span{
+#banner h2 span {
     color: #000000;
 }
 
-#banner button:hover{
+#banner button:hover {
     background: seagreen;
     color: #fff;
 }
 
-
 /* SECTION FOOTER */
 
-.footer1{
+.footer1 {
     width: 100%;
     background-color: #143f28;
 }
 
-.footer1 .grupo-1{
+.footer1 .grupo-1 {
     width: 100%;
     max-width: 1200px;
     margin: auto;
@@ -277,7 +294,7 @@ button.normal{
     padding: 45px 0px;
 }
 
-.footer1 .grupo-1 .box figure{
+.footer1 .grupo-1 .box figure {
     width: 100px;
     height: 100px;
     display: flex;
@@ -285,22 +302,22 @@ button.normal{
     align-items: center;
 }
 
-.footer1 .grupo-1 .box figure img{
+.footer1 .grupo-1 .box figure img {
     width: 250px;
 }
 
-.footer1 .grupo-1 .box h2{
+.footer1 .grupo-1 .box h2 {
     color: #fff;
     margin-bottom: 25px;
     font-size: 20px;
 }
 
-.footer1 .grupo-1 .box p{
+.footer1 .grupo-1 .box p {
     color: #efefee;
     margin-bottom: 0px;
 }
 
-.footer1 .grupo-1 .red-social a{
+.footer1 .grupo-1 .red-social a {
     display: inline-block;
     text-decoration: none;
     width: 45px;
@@ -310,31 +327,20 @@ button.normal{
     margin-right: 10px;
     background-color: #000000;
     text-align: center;
-    transition: all 300ms ease; 
+    transition: all 300ms ease;
 }
 
-.footer1 .grupo-1 .red-social a:hover{
+.footer1 .grupo-1 .red-social a:hover {
     color: seagreen;
 }
 
-.footer1 .grupo-2{
+.footer1 .grupo-2 {
     background-color: seagreen;
     padding: 15px 10px;
     text-align: center;
-    color: #fff;
-}
-
-.footer1 .grupo-2{
-    background-color: seagreen;
     color: #fff;
     display: flex;
     margin: auto;
     justify-content: center;
     padding: 45px 0px;
 }
-
-
-
-
-
-
