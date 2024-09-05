@@ -61,6 +61,7 @@ body{
 
 .header .nav-links a{
     font-size: 700;
+    font-family: monospace;
     color: rgb(0, 0, 0);
     text-decoration: none;
 }
