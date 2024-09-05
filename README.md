@@ -26,6 +26,4 @@ En este tipo repo se guardara las versiones de la Landing page del Hackaton 2024
 <h1>  < Our Developers/ >! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 30px> </h1>
 
 
-![Tarjeta Gio](https://github.com/user-attachments/assets/c2178047-c1c6-4333-aa76-8cc1d64986a6)
-![Tarjeta Will](https://github.com/user-attachments/assets/9f3e4d59-57d0-4622-bea5-b3c53198b7b6)
 
