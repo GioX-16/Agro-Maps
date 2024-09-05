@@ -23,7 +23,7 @@ En este tipo repo se guardara las versiones de la Landing page del Hackaton 2024
 
 <================================================>
 
-<h1>  < Our Developers/ >! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 30px> </h1>
+<h1> 🅷🅴🅻🅻🅾  < Developers/ >! <img src = "https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width = 30px> </h1>
 
 
 
