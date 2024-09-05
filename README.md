@@ -1,5 +1,5 @@
 # AgroMaps-Landing
-En este tipo repo se guardara las versiones de la Landing page del Hackaton 2024 
+En este repo se guardara las versiones de la Landing page del Hackaton 2024 
 
 ![Portada Repo](https://github.com/user-attachments/assets/7c38fdd3-304f-455a-b852-44c61aaffd9b)
 
