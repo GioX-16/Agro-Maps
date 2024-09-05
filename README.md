@@ -18,3 +18,5 @@ En este tipo repo se guardara las versiones de la Landing page del Hackaton 2024
   <img src="https://img.icons8.com/fluent/48/000000/github.png" width="55" alt="Github logo" />
 
 <img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" height="30" />
+
+<img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width ="25"><b> Skills</b>
