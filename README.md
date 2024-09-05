@@ -14,6 +14,6 @@ En este tipo repo se guardara las versiones de la Landing page del Hackaton 2024
   </a>
   <a href="https://nodejs.org" target="_blank"> <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a>
   <a href="https://www.python.org" target="_blank"> <img src="https://github.com/devicons/devicon/blob/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>     
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" width="52" alt="Bash logo" />
+  <img src="https://img.icons8.com/color/48/000000/console.png" width="53" alt="Console logo" />
   <img src="https://img.icons8.com/fluent/48/000000/github.png" width="55" alt="Github logo" />
 
