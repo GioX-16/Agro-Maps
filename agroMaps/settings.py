@@ -36,7 +36,7 @@ SECRET_KEY = 'django-insecure-%+4&^e@od$*az9=7qvyu&77b%!!ku8-0tj)sz^bfk-b_&2q&h7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'landingPage',
-    'loginFeature'
+    'loginFeature',
+    'mapApp'
 ]
 
 MIDDLEWARE = [
