@@ -4,47 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa Interactivo: Managua y Masaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            display: flex;
+            height: 100vh;
         }
         #mapa {
-            height: 600px;
-            width: 100%;
+            width: 70%;
         }
-        #selector {
+        #info {
+            width: 30%; 
             padding: 20px;
-            text-align: center;
+            background-color: #f9f9f9;
+            border-left: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        select, input, button {
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 48%;
+        }
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        h2 {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Mapa Interactivo: Límites de Managua y Masaya</h1>
-
-    <!-- Formulario para seleccionar entre Managua y Masaya -->
-    <div id="selector">
-        <form method="GET">
-            <label for="ciudad">Selecciona una ciudad:</label>
-            <select name="ciudad" id="ciudad">
-                <option value="managua" {% if ciudad == 'managua' %}selected{% endif %}>Managua</option>
-                <option value="masaya" {% if ciudad == 'masaya' %}selected{% endif %}>Masaya</option>
-            </select>
+    <div id="info">
+        <h2>Resultados del Estudio de Suelos</h2>
+        <form method="GET" style="margin-bottom: 20px;">
+            <div class="input-group">
+                <select name="ciudad" id="ciudad">
+                    <option value="managua" {% if ciudad == 'managua' %}selected{% endif %}>Managua</option>
+                    <option value="masaya" {% if ciudad == 'masaya' %}selected{% endif %}>Masaya</option>
+                </select>
+                <input type="text" name="fecha" id="fecha" placeholder="Selecciona fecha" data-input>
+            </div>
             <button type="submit">Mostrar</button>
         </form>
+        <div class="result">
+            {% if datos_suelo %}
+                <p><b>Ciudad:</b> {{ ciudad.capitalize }}</p>
+                {% for estudio in datos_suelo %}
+                    <div class="estudio">
+                        <p><b>pH:</b> {{ estudio.ph }}</p>
+                        <p><b>Taxonomía:</b> {{ estudio.taxonomia }}</p>
+                        <p><b>Textura:</b> {{ estudio.textura }}</p>
+                        <p><b>Fecha:</b> {{ estudio.fecha|date:'Y-m-d' }}</p>
+                        <p><b>Descripción:</b> {{ estudio.descripcion }}</p>
+                        <p><b>Recomendaciones:</b> {{ estudio.recomendaciones }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No hay datos disponibles para la fecha seleccionada.</p>
+            {% endif %}
+        </div>
+        
     </div>
 
-    <!-- Contenedor del mapa -->
     <div id="mapa">
         {{ mapa|safe }}
     </div>
 
-    <!-- Explicación del funcionamiento -->
-    <div>
-        <h2>Explicación del Funcionamiento</h2>
-        <p>El mapa permite visualizar los límites geográficos de dos ciudades nicaragüenses: Managua y Masaya. 
-           Al seleccionar una ciudad en el menú desplegable, se renderiza el polígono correspondiente en el mapa interactivo.</p>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#fecha", {
+            dateFormat: "Y-m-d"
+        });
+    </script>
 </body>
 </html>
