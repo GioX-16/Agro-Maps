@@ -9,12 +9,81 @@
             height: 600px;
             width: 100%;
         }
+        /* Estilos para el HUD deslizante */
+        #hud {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            padding: 10px;
+            z-index: 999;
+        }
+        #hud.open {
+            right: 0;
+        }
+        #closeHud {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        /* Botones flotantes */
+        .float-btn {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-color: #28a745;
+            border-radius: 50%;
+            bottom: 50px;
+            right: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .float-btn img {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
     <h1>Mapa Interactivo de Fertilidad del Suelo</h1>
+    
+    <!-- HUD deslizante -->
+    <div id="hud">
+        <span id="closeHud">X</span>
+        <h3>Información de Nutrientes</h3>
+        <!-- Aquí iría la lista de nutrientes -->
+    </div>
+
+    <!-- Botón flotante para abrir el HUD -->
+    <div class="float-btn" id="openHud">
+        <img src="planta_icono.png" alt="Planta Icono">
+    </div>
+
     <div id="mapid">
         {{ mapa|safe }}
     </div>
+
+    <script>
+        // Script para abrir y cerrar el HUD
+        const hud = document.getElementById('hud');
+        const openHud = document.getElementById('openHud');
+        const closeHud = document.getElementById('closeHud');
+
+        openHud.onclick = function() {
+            hud.classList.add('open');
+        }
+
+        closeHud.onclick = function() {
+            hud.classList.remove('open');
+        }
+    </script>
 </body>
 </html>
