@@ -1,100 +1,132 @@
 import folium
 from django.shortcuts import render
 from .models import SoilFertility
+from folium.plugins import MiniMap
 
 def mapa_fertilidad_view(request):
     # Crear un mapa centrado en Nicaragua
-    m = folium.Map(location=[12.865416, -85.207229], zoom_start=7)
+    mapa = folium.Map(location=[12.865416, -85.207229], zoom_start=7)
 
     # Crear grupos de capas para cada categoría
-    macronutrientes_group = folium.FeatureGroup(name="Macronutrientes")
-    micronutrientes_group = folium.FeatureGroup(name="Micronutrientes")
-    physical_properties_group = folium.FeatureGroup(name="Propiedades físicas del suelo")
-    ph_group = folium.FeatureGroup(name="pH del suelo")
-    organic_matter_group = folium.FeatureGroup(name="Materia orgánica")
+    grupoNutrientes = folium.FeatureGroup(name="Nutrientes")
+    grupoPropiedadesFisicas = folium.FeatureGroup(name="Propiedades físicas del suelo")
+    grupoPh = folium.FeatureGroup(name="pH del suelo")
+    grupoMateriaOrganica = folium.FeatureGroup(name="Materia orgánica")
 
-    # Extraer los datos de fertilidad del suelo desde la base de datos
-    suelos = SoilFertility.objects.all()
+    # Extraer los datos de la base de datos
+    bdRegistros = SoilFertility.objects.all()
 
-    for suelo in suelos:
-        # Crear contenido de popup para macronutrientes y micronutrientes
-        nutrient_popup = f"""
+    # Para cada registro dentro de la base de datos
+    for bdRegistro in bdRegistros:
+
+        # Almacenar Coordenadas del suelo del estudio
+        latitud = bdRegistro.location.latitude
+        longitud = bdRegistro.location.longitude
+
+        ### Información básica de la parcela y región
+        info_basica = f"""
+        <strong>{bdRegistro.name}</strong><br>
+        Región: {bdRegistro.region}<br>
+        Fecha del estudio: {bdRegistro.date_of_study}<br><br>
+        """
+
+        ### Procesamiento de Nutrientes (Macronutrientes y Micronutrientes)
+
+        # Almacenar y dar formato de Macronutrientes
+        macronutrientesInfo = f"""
         <strong>Macronutrientes:</strong><br>
-        Nitrógeno (N): {suelo.macronutrients.nitrogen} mg/kg<br>
-        Fósforo (P): {suelo.macronutrients.phosphorus} mg/kg<br>
-        Potasio (K): {suelo.macronutrients.potassium} mg/kg<br><br>
+        Nitrógeno (N): {bdRegistro.macronutrients.nitrogen} mg/kg<br>
+        Fósforo (P): {bdRegistro.macronutrients.phosphorus} mg/kg<br>
+        Potasio (K): {bdRegistro.macronutrients.potassium} mg/kg<br>
+        Calcio (Ca): {bdRegistro.macronutrients.calcium} mg/kg<br>
+        Magnesio (Mg): {bdRegistro.macronutrients.magnesium} mg/kg<br>
+        Azufre (S): {bdRegistro.macronutrients.sulfur} mg/kg<br><br>
+        """
+
+        # Almacenar y dar formato de Micronutrientes
+        micronutrientesInfo = f"""
         <strong>Micronutrientes:</strong><br>
-        Hierro (Fe): {suelo.micronutrients.iron} mg/kg<br>
-        Manganeso (Mn): {suelo.micronutrients.manganese} mg/kg<br>
-        Zinc (Zn): {suelo.micronutrients.zinc} mg/kg
+        Hierro (Fe): {bdRegistro.micronutrients.iron} mg/kg<br>
+        Manganeso (Mn): {bdRegistro.micronutrients.manganese} mg/kg<br>
+        Zinc (Zn): {bdRegistro.micronutrients.zinc} mg/kg<br>
+        Cobre (Cu): {bdRegistro.micronutrients.copper} mg/kg<br>
+        Boro (B): {bdRegistro.micronutrients.boron} mg/kg<br>
+        Molibdeno (Mo): {bdRegistro.micronutrients.molybdenum} mg/kg<br>
+        Cloro (Cl): {bdRegistro.micronutrients.chlorine} mg/kg<br>
+        Níquel (Ni): {bdRegistro.micronutrients.nickel} mg/kg<br><br>
         """
 
-        # Crear popups para propiedades físicas
-        physical_popup = f"""
+        # Crear marcador con popup dinámico para Macronutrientes y Micronutrientes
+        folium.Marker(
+            location=[latitud, longitud],
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + macronutrientesInfo + micronutrientesInfo}`)">{info_basica + macronutrientesInfo + micronutrientesInfo} Ver más!</a>', max_width=200),
+            icon=folium.Icon(color="green", icon="info-sign")
+        ).add_to(grupoNutrientes)
+
+        
+        ### Procesamiento de Propiedades Físicas del suelo
+
+        # Almacenar y dar formato de las Propiedades Físicas del Suelo
+        propiedadesFisicasInfo = f"""
         <strong>Propiedades físicas del suelo:</strong><br>
-        Textura: {suelo.physical_properties.texture}<br>
-        Permeabilidad: {suelo.physical_properties.permeability} mm/h<br>
-        Retención de agua: {suelo.physical_properties.water_retention} %<br>
-        Drenaje: {suelo.physical_properties.drainage}
+        Textura: {bdRegistro.physical_properties.texture}<br>
+        Estructura: {bdRegistro.physical_properties.structure}<br>
+        Permeabilidad: {bdRegistro.physical_properties.permeability} mm/h<br>
+        Retención de agua: {bdRegistro.physical_properties.water_retention}%<br>
+        Densidad aparente: {bdRegistro.physical_properties.bulk_density} g/cm³<br>
+        Drenaje: {bdRegistro.physical_properties.drainage}<br><br>
         """
 
-        # pH del suelo (se mostrará al pasar el mouse sobre los marcadores)
-        ph_popup = f"pH: {suelo.ph_level.ph_value}"
-
-        # Materia orgánica
-        organic_matter_popup = f"Materia Orgánica: {suelo.organic_matter.percentage}%"
-
-        # Coordenadas del suelo
-        latitud = suelo.location.latitude
-        longitud = suelo.location.longitude
-
-        # Marcadores para macronutrientes y micronutrientes
+        # Crear marcador con popup dinámico para Propiedades Físicas
         folium.Marker(
             location=[latitud, longitud],
-            popup=nutrient_popup,
-            icon=folium.Icon(color="green", icon="leaf"),
-        ).add_to(macronutrientes_group)
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + propiedadesFisicasInfo}`)">{info_basica + propiedadesFisicasInfo} Ver más!</a>', max_width=200),
+            icon=folium.Icon(color="blue", icon="info-sign")
+        ).add_to(grupoPropiedadesFisicas)
 
-        # Marcadores para propiedades físicas
+        ### Procesamiento de pH del suelo
+
+        phInfo = f"""
+        <strong>pH del suelo:</strong><br>
+        Valor de pH: {bdRegistro.ph_level.ph_value}<br><br>
+        """
+
+        # Crear marcador con popup dinámico para pH
         folium.Marker(
             location=[latitud, longitud],
-            popup=physical_popup,
-            icon=folium.Icon(color="blue", icon="info-sign"),
-        ).add_to(physical_properties_group)
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + phInfo}`)">{info_basica + phInfo} Ver más!</a>', max_width=200),
+            icon=folium.Icon(color="purple", icon="info-sign")
+        ).add_to(grupoPh)
 
-        # Marcadores para pH (aparecen al pasar el mouse)
-        folium.CircleMarker(
+        ### Procesamiento de Materia Orgánica
+
+        materiaOrganicaInfo = f"""
+        <strong>Materia orgánica:</strong><br>
+        Porcentaje: {bdRegistro.organic_matter.percentage}%<br><br>
+        """
+
+        # Crear marcador con popup dinámico para Materia Orgánica
+        folium.Marker(
             location=[latitud, longitud],
-            radius=10,
-            popup=ph_popup,
-            color="purple",
-            fill=True,
-            fill_color="purple",
-            fill_opacity=0.6
-        ).add_to(ph_group)
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + materiaOrganicaInfo}`)">{info_basica + materiaOrganicaInfo} Ver más!</a>', max_width=200),
+            icon=folium.Icon(color="brown", icon="info-sign")
+        ).add_to(grupoMateriaOrganica)
 
-        # Materia orgánica (como otra capa del mapa)
-        folium.CircleMarker(
-            location=[latitud, longitud],
-            radius=8,
-            popup=organic_matter_popup,
-            color="brown",
-            fill=True,
-            fill_color="brown",
-            fill_opacity=0.6
-        ).add_to(organic_matter_group)
+    # Añadir los grupos de capas al mapa
+    grupoNutrientes.add_to(mapa)
+    grupoPropiedadesFisicas.add_to(mapa)
+    grupoPh.add_to(mapa)
+    grupoMateriaOrganica.add_to(mapa)
 
-    # Agregar capas al mapa
-    macronutrientes_group.add_to(m)
-    physical_properties_group.add_to(m)
-    ph_group.add_to(m)
-    organic_matter_group.add_to(m)
+    # Añadir control de capas para que el usuario pueda alternar entre ellas
+    folium.LayerControl().add_to(mapa)
 
-    # Añadir control de capas para alternar entre ellas
-    folium.LayerControl().add_to(m)
+    # Añadir agregar minimapa
+    minimap = MiniMap(width=200, height=200, toggle_display=True)
+    minimap.add_to(mapa)
 
     # Convertir el mapa a HTML
-    map_html = m._repr_html_()
+    mapa_html = mapa._repr_html_()
 
-    # Renderizar el mapa en la plantilla
-    return render(request, 'mapa_fertilidad.html', {'mapa': map_html})
+    # Pasar el mapa a la plantilla
+    return render(request, 'mapa_fertilidad.html', {'mapa': mapa_html})

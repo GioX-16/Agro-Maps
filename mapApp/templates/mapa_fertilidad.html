@@ -6,31 +6,35 @@
     <title>Mapa de Fertilidad del Suelo</title>
     <style>
         #mapid {
-            height: 600px;
+            height: 100%;
             width: 100%;
         }
-        /* Estilos para el HUD deslizante */
+    
+        /* Estilos para el HUD deslizante desde la izquierda */
         #hud {
             position: fixed;
             top: 0;
-            right: -300px;
+            left: -300px; /* Cambiado de 'right' a 'left' */
             width: 300px;
             height: 100%;
             background-color: white;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-            transition: right 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Cambiado de '-2px' a '2px' */
+            transition: left 0.3s ease; /* Cambiado de 'right' a 'left' */
             padding: 10px;
             z-index: 999;
         }
+    
         #hud.open {
-            right: 0;
+            left: 0; /* Cambiado de 'right: 0' a 'left: 0' */
         }
+    
         #closeHud {
             position: absolute;
             top: 10px;
-            right: 10px;
+            right: 10px; /* Mover el botón de cerrar a la izquierda */
             cursor: pointer;
         }
+    
         /* Botones flotantes */
         .float-btn {
             position: fixed;
@@ -39,13 +43,14 @@
             background-color: #28a745;
             border-radius: 50%;
             bottom: 50px;
-            right: 20px;
+            left: 20px; /* Cambiado de 'right' a 'left' para que el botón esté en la izquierda */
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 999;
         }
+    
         .float-btn img {
             width: 30px;
             height: 30px;
@@ -58,8 +63,8 @@
     <!-- HUD deslizante -->
     <div id="hud">
         <span id="closeHud">X</span>
-        <h3>Información de Nutrientes</h3>
-        <!-- Aquí iría la lista de nutrientes -->
+        <div id="infoSuelo"></div>
+        <div id="hudinterior"><h3>Detalles</h3></div>
     </div>
 
     <!-- Botón flotante para abrir el HUD -->
@@ -84,6 +89,11 @@
         closeHud.onclick = function() {
             hud.classList.remove('open');
         }
+
+        function printinfo(content) {
+            document.getElementById('hudinterior').innerHTML = '<h3>Detalles</h3>' + content;
+        }
+
     </script>
 </body>
 </html>
