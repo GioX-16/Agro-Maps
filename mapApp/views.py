@@ -19,6 +19,11 @@ def mapa_fertilidad_view(request):
     # Para cada registro dentro de la base de datos
     for bdRegistro in bdRegistros:
 
+        #Almacenando el id del estudio
+        idEstudio = f"""
+        <h6 style= 'visibility:  none;'> {bdRegistro.id} </h6>
+        """
+
         # Almacenar Coordenadas del suelo del estudio
         latitud = bdRegistro.location.latitude
         longitud = bdRegistro.location.longitude
@@ -59,7 +64,7 @@ def mapa_fertilidad_view(request):
         # Crear marcador con popup dinámico para Macronutrientes y Micronutrientes
         folium.Marker(
             location=[latitud, longitud],
-            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + macronutrientesInfo + micronutrientesInfo}`)">{info_basica + macronutrientesInfo + micronutrientesInfo} Ver más!</a>', max_width=200),
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + macronutrientesInfo + micronutrientesInfo + idEstudio }`)">{info_basica + macronutrientesInfo + micronutrientesInfo } Ver más!</a>', max_width=200),
             icon=folium.Icon(color="green", icon="info-sign")
         ).add_to(grupoNutrientes)
 
@@ -80,7 +85,7 @@ def mapa_fertilidad_view(request):
         # Crear marcador con popup dinámico para Propiedades Físicas
         folium.Marker(
             location=[latitud, longitud],
-            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + propiedadesFisicasInfo}`)">{info_basica + propiedadesFisicasInfo} Ver más!</a>', max_width=200),
+            popup=folium.Popup(f'<a onclick="window.parent.printinfo(`{info_basica + propiedadesFisicasInfo}`)">{info_basica + propiedadesFisicasInfo} Ver más! </a>', max_width=200),
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(grupoPropiedadesFisicas)
 
