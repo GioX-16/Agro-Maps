@@ -1,7 +1,8 @@
 import folium
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from .models import SoilFertility
 from folium.plugins import MiniMap
+
 
 def mapa_fertilidad_view(request):
     # Crear un mapa centrado en Nicaragua
@@ -20,9 +21,7 @@ def mapa_fertilidad_view(request):
     for bdRegistro in bdRegistros:
 
         #Almacenando el id del estudio
-        idEstudio = f"""
-        <h6 style= 'visibility:  none;'> {bdRegistro.id} </h6>
-        """
+        idEstudio = f"""<h6 id='estudio-id' style= 'position: absolute;opacity: 0;'> {bdRegistro.id} </h6>"""
 
         # Almacenar Coordenadas del suelo del estudio
         latitud = bdRegistro.location.latitude
@@ -135,3 +134,11 @@ def mapa_fertilidad_view(request):
 
     # Pasar el mapa a la plantilla
     return render(request, 'mapa_fertilidad.html', {'mapa': mapa_html})
+
+
+def detalle_estudio(request, id):
+    # Obtener el estudio por su ID
+    estudio = get_object_or_404(SoilFertility, id=id)
+    
+    # Renderizar una plantilla con los detalles del estudio
+    return render(request, 'detalle_estudio.html', {'estudio': estudio})
