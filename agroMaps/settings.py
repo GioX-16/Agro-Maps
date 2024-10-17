@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 # Redirigir después del login/logout
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_URL = '/login/'
 
@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'agromaps',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'sqlbegin',
         'HOST': 'localhost',  # o el host que uses
         'PORT': '5432',  # el puerto por defecto de PostgreSQL
         'OPTIONS': {

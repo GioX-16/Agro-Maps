@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from loginFeature import views as login_views
+from mapApp import views as map_views
 
 
 urlpatterns = [
@@ -24,5 +25,8 @@ urlpatterns = [
     path('', include('landingPage.urls')),
     path('login/', include('loginFeature.urls')),
     path('logout/', login_views.user_logout, name='logout'),
-    path('mapApp/', include('mapApp.urls')),
+    # path('mapApp/', include('mapApp.urls')),
+    # path('dashboard/', mapApp_views.dashboard_view, name='dashboard')
+     path('panel/', map_views.dashboard_view, name='dashboard'),  # Panel directamente en /panel
+    path('mapApp/', include('mapApp.urls')),  # Rutas de mapApp
 ]

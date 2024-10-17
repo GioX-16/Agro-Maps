@@ -1,0 +1,107 @@
+body {
+    font-family: Open Sans, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Fondo general de la página */
+}
+
+.logo {
+    max-width: 50% !important; /* Ajusta el ancho máximo de la imagen */
+    height: auto; /* Mantiene la relación de aspecto */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    display: block; /* Asegura que la imagen se trate como un bloque para el centrado */
+}
+
+.sidenav {
+    width: 250px; /* Ancho del sidenav */
+    height: 100vh; /* Altura completa */
+    background-color: #ffffff; /* Color de fondo */
+    position: fixed; /* Fijo a la izquierda */
+    top: 0;
+    left: 0;
+    padding-top: 30px; /* Espacio superior aumentado */
+    padding-left: 20px; /* Añadir padding a la izquierda */
+    padding-right: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    transition: all 0.3s; /* Transición suave para cualquier cambio */
+}
+
+.sidenav-header {
+    text-align: center; /* Centrar contenido */
+    margin-bottom: 25px; /* Espacio inferior */
+}
+
+.logo {
+    max-width: 100%; /* Ajusta la imagen */
+    height: auto;
+}
+
+.nav-items {
+    list-style-type: none; /* Sin puntos en la lista */
+    padding: 0; /* Sin padding */
+    margin: 0; /* Sin margin */
+}
+
+.nav-item {
+    margin: 15px 0; /* Mayor espacio entre elementos */
+}
+
+.nav-link {
+    display: flex; /* Flex para alinear icono y texto */
+    align-items: center; /* Centrar verticalmente */
+    text-decoration: none; /* Sin subrayado */
+    color: #333; /* Color del texto */
+    padding: 12px 20px; /* Aumentar el espacio alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.nav-link:hover {
+    background-color: #e9ecef; /* Color al pasar el mouse */
+    color: #007bff; /* Color de texto al pasar el mouse */
+}
+
+.icon {
+    margin-right: 15px; /* Mayor espacio entre icono y texto */
+    font-size: 1.15em; /* Ajuste del tamaño de icono */
+}
+
+/* Divider */
+hr {
+    margin: 25px 0; /* Más espacio alrededor del divisor */
+    border: 0; /* Sin borde por defecto */
+    border-top: 1px solid #e0e0e0; /* Línea superior */
+}
+
+/* Navbar heading */
+.navbar-heading {
+    padding: 12px 20px; /* Más espacio alrededor del encabezado */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-size: 0.75rem; /* Tamaño de fuente más pequeño */
+    color: #6c757d; /* Color gris */
+}
+
+
+.sidenav {
+    width: 250px;
+    background: #ffffff;
+    position: fixed;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+.nav-link {
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+.nav-link:hover {
+    background: #e9ecef;
+    color: #000;
+}
+
+.nav-link.active {
+    background: #192634 !important;
+    color: white;
+}

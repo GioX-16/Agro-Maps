@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'assets/css/argon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/study.css' %}">
+    <title>Registro de Estudios de Suelo</title>
+</head>
+<body>
+
+{% include 'includes/sidenavbar.html' %}
+
+<div class="main-content">
+    <div class="">
+        <!-- Tu contenido aquí -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro de Estudios de Suelo</li>
+            </ol>
+        </nav>
+        <h2 class="mb-4">Registro de Estudios de Suelo</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="search-bar" style="flex-grow: 0.2; margin-right: 10px;">
+                <div class="form-input">
+                    <input type="text" id="search-input" placeholder="Buscar estudio..." onfocus="showDropdown()" onblur="hideDropdown()">
+                    <button type="submit" class="search-btn1"><i class='bx bx-search'></i></button>
+                </div>
+            </div>
+
+            <a href="/mapApp/formstudy" class="custom-button" >
+                <svg class="icon" viewBox="0 0 15 15">
+                  <svg
+                    class="inner-icon"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                </svg>
+            </a>
+              
+        </div>
+    
+        <!-- Accordion for displaying soil studies -->
+        <div id="accordion">
+            <!-- Example of a study card -->
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                            <i class="fas fa-user user-icon mr-2"></i> Juan Pérez
+                            <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Estudio de Suelo 1
+                            </button>
+                        </span>
+                        <span>
+                            <button class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                            <button class="btn btn-info btn-sm" title="Registrar Análisis"><i class="fas fa-file-medical-alt"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="section">
+                            <div>
+                                <strong>Identificación de la Muestra:</strong>
+                                <p>Fecha: 2024-10-01</p>
+                                <p>Departamento: Managua</p>
+                                <p>Finca: Finca Santa Teresa</p>
+                            </div>
+                            <div>
+                                <strong>Muestreo de Suelo:</strong>
+                                <p>Profundidad de Muestreo: 30 cm</p>
+                                <p>Responsable: Juan Pérez</p>
+                            </div>
+                            <div>
+                                <strong>Características del Suelo:</strong>
+                                <p>Comentarios: Estudio realizado bajo condiciones normales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Repeat similar blocks for other studies -->
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                            <i class="fas fa-user user-icon mr-2"></i> María González
+                            <button class="btn btn-link text-white collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Estudio de Suelo 2
+                            </button>
+                        </span>
+                        <span>
+                            <button class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                            <button class="btn btn-info btn-sm" title="Registrar Análisis"><i class="fas fa-file-medical-alt"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="section">
+                            <div>
+                                <strong>Identificación de la Muestra:</strong>
+                                <p>Fecha: 2024-10-05</p>
+                                <p>Departamento: Masaya</p>
+                                <p>Finca: Finca La Esperanza</p>
+                            </div>
+                            <div>
+                                <strong>Muestreo de Suelo:</strong>
+                                <p>Profundidad de Muestreo: 25 cm</p>
+                                <p>Responsable: María González</p>
+                            </div>
+                            <div>
+                                <strong>Características del Suelo:</strong>
+                                <p>Comentarios: Se observó una sequía considerable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-end">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    </div>
+    
+    <!-- Modal for adding a new study -->
+    <div class="modal fade" id="addStudyModal" tabindex="-1" role="dialog" aria-labelledby="addStudyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudyModalLabel">Añadir Nuevo Estudio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="studyDate">Fecha</label>
+                            <input type="date" class="form-control" id="studyDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Departamento</label>
+                            <input type="text" class="form-control" id="department" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="farmName">Finca</label>
+                            <input type="text" class="form-control" id="farmName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="depth">Profundidad de Muestreo (cm)</label>
+                            <input type="number" class="form-control" id="depth" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="responsible">Responsable</label>
+                            <input type="text" class="form-control" id="responsible" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comments">Comentarios</label>
+                            <textarea class="form-control" id="comments" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar Estudio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    </body>
+    </html>
+    

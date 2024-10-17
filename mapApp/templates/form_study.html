@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/argon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/form-study.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom-file.css' %}">
+    <title>Registro de Estudios de Suelo</title>
+</head>
+<body>
+
+{% include 'includes/sidenavbar.html' %}
+
+<div class="content">
+    <div class="mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/mapApp/study">Muestra</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro de Estudios de Suelo</li>
+            </ol>
+        </nav>
+
+        <h2>Registro de Estudios de Suelo</h2>
+
+        <form method="POST" action="{% url 'register_soil_study' %}">
+            {% csrf_token %}
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#identificacion">Identificación de Muestras</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#ubicacion">Ubicación (GeoJSON)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#muestreo">Muestreo de Suelos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#caracteristicas">Características del Suelo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#analisis">Análisis de Suelo</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                {% include 'components/muestra-id.html' %}
+                {% include 'components/ubication-form.html' %}
+                {% include 'components/muestreo.html' %}
+                {% include 'components/caract-suelo.html' %}
+                {% include 'components/analisis.html' %}
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Registrar Estudio</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    const input = document.querySelector("#telefono");
+    window.intlTelInput(input, {
+        initialCountry: "NI", // Liberia
+        separateDialCode: true,
+    });
+
+  
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#geometry_type').on('change', function() {
+            var type = $(this).val();
+            if (type === 'Point') {
+                $('#latlong-fields').show();
+                $('#geojson-file-upload, #geojson-text-entry').hide();
+            } else {
+                $('#latlong-fields').hide();
+                $('#geojson-file-upload, #geojson-text-entry').show();
+            }
+        });
+        $('#geometry_type').trigger('change');
+    });
+</script>
+
+</body>
+</html>
+

@@ -1,7 +1,41 @@
 import folium
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import SoilFertility
 from folium.plugins import MiniMap
+from .forms import SoilFertilityForm, LocationForm
+
+def register_soil_study(request):
+    if request.method == 'POST':
+        location_form = LocationForm(request.POST)
+        soil_form = SoilFertilityForm(request.POST)
+        
+        if location_form.is_valid() and soil_form.is_valid():
+            location = location_form.save()
+            soil_study = soil_form.save(commit=False)
+            soil_study.location = location
+            soil_study.registered_by = request.user  # Asignar el usuario actual
+            soil_study.save()
+            return redirect('study')  # Redirige a una lista de estudios de suelo, por ejemplo.
+    
+    else:
+        location_form = LocationForm()
+        soil_form = SoilFertilityForm()
+    
+    return render(request, 'register_soil_study.html', {
+        'location_form': location_form,
+        'soil_form': soil_form
+    })
+
+
+def dashboard_view(request):
+    return render(request, 'dashboard.html')
+
+def study_view(request):
+    return render(request, 'study.html')
+
+def form_study_view(request):
+    return render(request, 'form_study.html')
+
 
 def mapa_fertilidad_view(request):
     # Crear un mapa centrado en Nicaragua
@@ -18,7 +52,6 @@ def mapa_fertilidad_view(request):
 
     # Para cada registro dentro de la base de datos
     for bdRegistro in bdRegistros:
-
         # Almacenar Coordenadas del suelo del estudio
         latitud = bdRegistro.location.latitude
         longitud = bdRegistro.location.longitude
@@ -33,28 +66,32 @@ def mapa_fertilidad_view(request):
         ### Procesamiento de Nutrientes (Macronutrientes y Micronutrientes)
 
         # Almacenar y dar formato de Macronutrientes
-        macronutrientesInfo = f"""
-        <strong>Macronutrientes:</strong><br>
-        Nitrógeno (N): {bdRegistro.macronutrients.nitrogen} mg/kg<br>
-        Fósforo (P): {bdRegistro.macronutrients.phosphorus} mg/kg<br>
-        Potasio (K): {bdRegistro.macronutrients.potassium} mg/kg<br>
-        Calcio (Ca): {bdRegistro.macronutrients.calcium} mg/kg<br>
-        Magnesio (Mg): {bdRegistro.macronutrients.magnesium} mg/kg<br>
-        Azufre (S): {bdRegistro.macronutrients.sulfur} mg/kg<br><br>
-        """
+        macronutrientesInfo = ""
+        if hasattr(bdRegistro, 'macronutrients'):
+            macronutrientesInfo = f"""
+            <strong>Macronutrientes:</strong><br>
+            Nitrógeno (N): {bdRegistro.macronutrients.nitrogen} mg/kg<br>
+            Fósforo (P): {bdRegistro.macronutrients.phosphorus} mg/kg<br>
+            Potasio (K): {bdRegistro.macronutrients.potassium} mg/kg<br>
+            Calcio (Ca): {bdRegistro.macronutrients.calcium} mg/kg<br>
+            Magnesio (Mg): {bdRegistro.macronutrients.magnesium} mg/kg<br>
+            Azufre (S): {bdRegistro.macronutrients.sulfur} mg/kg<br><br>
+            """
 
         # Almacenar y dar formato de Micronutrientes
-        micronutrientesInfo = f"""
-        <strong>Micronutrientes:</strong><br>
-        Hierro (Fe): {bdRegistro.micronutrients.iron} mg/kg<br>
-        Manganeso (Mn): {bdRegistro.micronutrients.manganese} mg/kg<br>
-        Zinc (Zn): {bdRegistro.micronutrients.zinc} mg/kg<br>
-        Cobre (Cu): {bdRegistro.micronutrients.copper} mg/kg<br>
-        Boro (B): {bdRegistro.micronutrients.boron} mg/kg<br>
-        Molibdeno (Mo): {bdRegistro.micronutrients.molybdenum} mg/kg<br>
-        Cloro (Cl): {bdRegistro.micronutrients.chlorine} mg/kg<br>
-        Níquel (Ni): {bdRegistro.micronutrients.nickel} mg/kg<br><br>
-        """
+        micronutrientesInfo = ""
+        if hasattr(bdRegistro, 'micronutrients'):
+            micronutrientesInfo = f"""
+            <strong>Micronutrientes:</strong><br>
+            Hierro (Fe): {bdRegistro.micronutrients.iron} mg/kg<br>
+            Manganeso (Mn): {bdRegistro.micronutrients.manganese} mg/kg<br>
+            Zinc (Zn): {bdRegistro.micronutrients.zinc} mg/kg<br>
+            Cobre (Cu): {bdRegistro.micronutrients.copper} mg/kg<br>
+            Boro (B): {bdRegistro.micronutrients.boron} mg/kg<br>
+            Molibdeno (Mo): {bdRegistro.micronutrients.molybdenum} mg/kg<br>
+            Cloro (Cl): {bdRegistro.micronutrients.chlorine} mg/kg<br>
+            Níquel (Ni): {bdRegistro.micronutrients.nickel} mg/kg<br><br>
+            """
 
         # Crear marcador con popup dinámico para Macronutrientes y Micronutrientes
         folium.Marker(
@@ -63,19 +100,18 @@ def mapa_fertilidad_view(request):
             icon=folium.Icon(color="green", icon="info-sign")
         ).add_to(grupoNutrientes)
 
-        
         ### Procesamiento de Propiedades Físicas del suelo
-
-        # Almacenar y dar formato de las Propiedades Físicas del Suelo
-        propiedadesFisicasInfo = f"""
-        <strong>Propiedades físicas del suelo:</strong><br>
-        Textura: {bdRegistro.physical_properties.texture}<br>
-        Estructura: {bdRegistro.physical_properties.structure}<br>
-        Permeabilidad: {bdRegistro.physical_properties.permeability} mm/h<br>
-        Retención de agua: {bdRegistro.physical_properties.water_retention}%<br>
-        Densidad aparente: {bdRegistro.physical_properties.bulk_density} g/cm³<br>
-        Drenaje: {bdRegistro.physical_properties.drainage}<br><br>
-        """
+        propiedadesFisicasInfo = ""
+        if hasattr(bdRegistro, 'physical_properties'):
+            propiedadesFisicasInfo = f"""
+            <strong>Propiedades físicas del suelo:</strong><br>
+            Textura: {bdRegistro.physical_properties.texture}<br>
+            Estructura: {bdRegistro.physical_properties.structure}<br>
+            Permeabilidad: {bdRegistro.physical_properties.permeability} mm/h<br>
+            Retención de agua: {bdRegistro.physical_properties.water_retention}%<br>
+            Densidad aparente: {bdRegistro.physical_properties.bulk_density} g/cm³<br>
+            Drenaje: {bdRegistro.physical_properties.drainage}<br><br>
+            """
 
         # Crear marcador con popup dinámico para Propiedades Físicas
         folium.Marker(
@@ -85,11 +121,12 @@ def mapa_fertilidad_view(request):
         ).add_to(grupoPropiedadesFisicas)
 
         ### Procesamiento de pH del suelo
-
-        phInfo = f"""
-        <strong>pH del suelo:</strong><br>
-        Valor de pH: {bdRegistro.ph_level.ph_value}<br><br>
-        """
+        phInfo = ""
+        if hasattr(bdRegistro, 'ph_level'):
+            phInfo = f"""
+            <strong>pH del suelo:</strong><br>
+            Valor de pH: {bdRegistro.ph_level.ph_value}<br><br>
+            """
 
         # Crear marcador con popup dinámico para pH
         folium.Marker(
@@ -99,11 +136,12 @@ def mapa_fertilidad_view(request):
         ).add_to(grupoPh)
 
         ### Procesamiento de Materia Orgánica
-
-        materiaOrganicaInfo = f"""
-        <strong>Materia orgánica:</strong><br>
-        Porcentaje: {bdRegistro.organic_matter.percentage}%<br><br>
-        """
+        materiaOrganicaInfo = ""
+        if hasattr(bdRegistro, 'organic_matter'):
+            materiaOrganicaInfo = f"""
+            <strong>Materia orgánica:</strong><br>
+            Porcentaje: {bdRegistro.organic_matter.percentage}%<br><br>
+            """
 
         # Crear marcador con popup dinámico para Materia Orgánica
         folium.Marker(
@@ -121,7 +159,7 @@ def mapa_fertilidad_view(request):
     # Añadir control de capas para que el usuario pueda alternar entre ellas
     folium.LayerControl().add_to(mapa)
 
-    # Añadir agregar minimapa
+    # Añadir minimapa
     minimap = MiniMap(width=200, height=200, toggle_display=True)
     minimap.add_to(mapa)
 
@@ -129,4 +167,4 @@ def mapa_fertilidad_view(request):
     mapa_html = mapa._repr_html_()
 
     # Pasar el mapa a la plantilla
-    return render(request, 'mapa_fertilidad.html', {'mapa': mapa_html})
+    return render(request, 'mapa.html', {'mapa': mapa_html})

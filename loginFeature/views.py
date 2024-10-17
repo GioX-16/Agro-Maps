@@ -14,7 +14,7 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redirige a la página principal después de iniciar sesión
+            return redirect('dashboard')  # Redirige a la página principal después de iniciar sesión
         else:
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
     
