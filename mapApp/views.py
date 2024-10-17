@@ -13,15 +13,15 @@ def register_soil_study(request):
             location = location_form.save()
             soil_study = soil_form.save(commit=False)
             soil_study.location = location
-            soil_study.registered_by = request.user  # Asignar el usuario actual
+            soil_study.registered_by = request.user  
             soil_study.save()
-            return redirect('study')  # Redirige a una lista de estudios de suelo, por ejemplo.
+            return redirect('study') 
     
     else:
         location_form = LocationForm()
         soil_form = SoilFertilityForm()
     
-    return render(request, 'register_soil_study.html', {
+    return render(request, 'formstudy.html', {
         'location_form': location_form,
         'soil_form': soil_form
     })
