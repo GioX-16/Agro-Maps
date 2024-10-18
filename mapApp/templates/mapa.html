@@ -74,6 +74,40 @@
 				</a>
 			</div>
 
+
+            <!-- Tarjeta desplazable con información -->
+            <div class="scrollable-card">
+                <div class="card-header">
+                    <h3>Propiedades del Suelo</h3>
+                    <button onclick="openNewTab()" class="btn btn-sm btn-primary float-right">Abrir Detalles</button>
+
+                </div>
+                <div class="card-body">
+                    <h4>Propiedades Físicas</h4>
+                    <ul>
+                        <li>Textura: <span>Arenosa</span></li>
+                        <li>Densidad aparente: <span>1.3 g/cm³</span></li>
+                        <li>Permeabilidad: <span>Moderada</span></li>
+                        <li>Retención de agua: <span>60%</span></li>
+                    </ul>
+                    <h4>Macronutrientes</h4>
+                    <ul>
+                        <li>Nitrógeno (N): <span>2%</span></li>
+                        <li>Fósforo (P): <span>0.5%</span></li>
+                        <li>Potasio (K): <span>1%</span></li>
+                        <li>Calcio (Ca): <span>5%</span></li>
+                        <li>Magnesio (Mg): <span>0.8%</span></li>
+                    </ul>
+                    <h4>Micronutrientes</h4>
+                    <ul>
+                        <li>Hierro (Fe): <span>100 ppm</span></li>
+                        <li>Manganeso (Mn): <span>50 ppm</span></li>
+                        <li>Zinc (Zn): <span>30 ppm</span></li>
+                        <li>Cobre (Cu): <span>20 ppm</span></li>
+                    </ul>
+                </div>
+            </div>
+
             <div id="mapid">
                 {{ mapa|safe }}
             </div>
@@ -84,8 +118,14 @@
 	<!-- CONTENT -->
 	
 
+    <script>
+        function openNewTab() {
+            window.open('https://example.com', '_blank');
+        }
+    </script>
 
     <script>
+        
         const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
         allSideMenu.forEach(item=> {
