@@ -21,7 +21,7 @@ def register_soil_study(request):
         location_form = LocationForm()
         soil_form = SoilFertilityForm()
     
-    return render(request, 'formstudy.html', {
+    return render(request, 'form_study.html', {
         'location_form': location_form,
         'soil_form': soil_form
     })
@@ -31,7 +31,8 @@ def dashboard_view(request):
     return render(request, 'dashboard.html')
 
 def study_view(request):
-    return render(request, 'study.html')
+    estudios = SoilFertility.objects.all()
+    return render(request, 'study.html',{'estudios':estudios})
 
 def form_study_view(request):
     return render(request, 'form_study.html')

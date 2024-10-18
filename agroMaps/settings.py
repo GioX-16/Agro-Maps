@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'agroMaps.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'agromaps',
+        'NAME': 'agromaps3',
         'USER': 'postgres',
-        'PASSWORD': 'sqlbegin',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',  # o el host que uses
         'PORT': '5432',  # el puerto por defecto de PostgreSQL
         'OPTIONS': {

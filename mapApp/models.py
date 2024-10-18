@@ -18,7 +18,7 @@ class SoilFertility(models.Model):
     region = models.CharField(max_length=100, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     date_of_study = models.DateField()
-    location = models.OneToOneField(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     registered_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     validated = models.BooleanField(default=False)
     soil_depth = models.FloatField(null=True, blank=True)

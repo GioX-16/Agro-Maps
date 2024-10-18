@@ -57,14 +57,14 @@
     
         <!-- Accordion for displaying soil studies -->
         <div id="accordion">
-            <!-- Example of a study card -->
+            {% for estudio in estudios %}
             <div class="card">
-                <div class="card-header" id="headingOne">
+                <div class="card-header" id="heading{{ forloop.counter }}">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>
-                            <i class="fas fa-user user-icon mr-2"></i> Juan Pérez
-                            <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Estudio de Suelo 1
+                            <i class="fas fa-user user-icon mr-2"></i> {{ estudio.registered_by.get_full_name }}
+                            <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                {{ estudio.name }}
                             </button>
                         </span>
                         <span>
@@ -74,69 +74,31 @@
                         </span>
                     </div>
                 </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
                     <div class="card-body">
                         <div class="section">
                             <div>
                                 <strong>Identificación de la Muestra:</strong>
-                                <p>Fecha: 2024-10-01</p>
-                                <p>Departamento: Managua</p>
-                                <p>Finca: Finca Santa Teresa</p>
+                                <p>Fecha: {{ estudio.date_of_study }}</p>
+                                <p>Departamento: {{ estudio.region }}</p>
+                                <p>Finca: {{ estudio.farm_name }}</p>
                             </div>
                             <div>
                                 <strong>Muestreo de Suelo:</strong>
-                                <p>Profundidad de Muestreo: 30 cm</p>
-                                <p>Responsable: Juan Pérez</p>
+                                <p>Profundidad de Muestreo: {{ estudio.soil_depth }} cm</p>
+                                <p>Responsable: {{ estudio.registered_by.get_full_name }}</p>
                             </div>
                             <div>
                                 <strong>Características del Suelo:</strong>
-                                <p>Comentarios: Estudio realizado bajo condiciones normales.</p>
+                                <p>Comentarios: {{ estudio.sample_conditions }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <!-- Repeat similar blocks for other studies -->
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>
-                            <i class="fas fa-user user-icon mr-2"></i> María González
-                            <button class="btn btn-link text-white collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Estudio de Suelo 2
-                            </button>
-                        </span>
-                        <span>
-                            <button class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
-                            <button class="btn btn-info btn-sm" title="Registrar Análisis"><i class="fas fa-file-medical-alt"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        <div class="section">
-                            <div>
-                                <strong>Identificación de la Muestra:</strong>
-                                <p>Fecha: 2024-10-05</p>
-                                <p>Departamento: Masaya</p>
-                                <p>Finca: Finca La Esperanza</p>
-                            </div>
-                            <div>
-                                <strong>Muestreo de Suelo:</strong>
-                                <p>Profundidad de Muestreo: 25 cm</p>
-                                <p>Responsable: María González</p>
-                            </div>
-                            <div>
-                                <strong>Características del Suelo:</strong>
-                                <p>Comentarios: Se observó una sequía considerable.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        
     
         <!-- Pagination -->
         <nav aria-label="Page navigation" class="mt-4">
