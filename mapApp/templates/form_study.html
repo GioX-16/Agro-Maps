@@ -56,7 +56,12 @@
                 {% include 'components/analisis.html' %}
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Registrar Estudio</button>
+            <!-- <button type="submit" class="btn btn-primary mt-3">Registrar Estudio</button> -->
+            <div class="mt-3">
+                <button type="button" id="continueBtn" class="btn btn-secondary">Continuar</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary" style="display: none;">Registrar Estudio</button>
+            </div>
+            
         </form>
     </div>
 </div>
@@ -93,6 +98,37 @@
         });
         $('#geometry_type').trigger('change');
     });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+    let totalTabs = $('.nav-tabs .nav-item').length;
+    let currentTab = 1;
+
+    $('#continueBtn').on('click', function() {
+        if (currentTab < totalTabs) {
+            currentTab++;
+            $('.nav-tabs .nav-item:nth-child(' + currentTab + ') .nav-link').tab('show');
+        }
+        if (currentTab === totalTabs) {
+            $('#continueBtn').hide();
+            $('#submitBtn').show();
+        }
+    });
+
+    // Manejar el cambio de pestañas manual
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        currentTab = $(e.target).parent().index() + 1;
+        if (currentTab === totalTabs) {
+            $('#continueBtn').hide();
+            $('#submitBtn').show();
+        } else {
+            $('#continueBtn').show();
+            $('#submitBtn').hide();
+        }
+    });
+});
 </script>
 
 </body>
