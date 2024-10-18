@@ -767,15 +767,12 @@ body {
         <!-- Botón para buscar -->
         <button class="search-btn">Buscar</button>
     
+		<!-- boton para redirigir a la vista de analisis de datos -->
+		<button onclick="redirigirConID()"> Abrir Analisis</button>
+
         <!-- Detalles del estudio -->
         <div class="study-details">
-            <h4>Detalles</h4>
-            <p>Área: <span id="area">Area1</span></p>
-            <p>Región: <span id="region">Region1</span></p>
-            <p>Fecha de estudio: <span id="study-date">2024-09-25</span></p>
-            <p>pH del suelo: <span id="ph">6.5</span></p>
-            <p>Taxonomía: <span id="taxonomy">Textura Arenosa</span></p>
-            <p>Comentario del especialista: <span id="comment">El suelo es adecuado para cultivos de maíz.</span></p>
+            <div id="hudinterior"><h3></h3></div>
         </div>
     
         <!-- Sección de recomendaciones -->
@@ -940,6 +937,23 @@ body {
             document.getElementById('search-input').value = city;
             hideDropdown(); // Oculta el dropdown después de seleccionar
         }
+
+
+		function printinfo(content) {
+            document.getElementById('hudinterior').innerHTML = '<h3>Detalles</h3>' + content;
+        }
+
+		function redirigirConID() {
+            // Obtener el valor del ID desde la etiqueta invisible
+            var estudioID = document.getElementById('estudio-id').textContent.trim();
+    
+            // Generar la URL con Jinja utilizando un marcador de posición (id)
+            var urlDjango = "{% url 'detalle_estudio' 0 %}".replace('0', estudioID);
+    
+            // Redirigir al usuario a la URL de Django con el ID
+            window.location.href = urlDjango;
+        }
+
     </script>
 </body>
 </html>
