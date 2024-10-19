@@ -179,21 +179,19 @@ def mapa_fertilidad_view(request):
     return render(request, 'mapa.html', {'mapa': mapa_html})
 
 
-def detalle_estudio(request, id):
-    # Obtener el estudio por su ID
-    estudio = get_object_or_404(SoilFertility, id=id)
-    
-    # Renderizar una plantilla con los detalles del estudio
-    return render(request, 'chatbot.html', {'estudio': estudio})
-
-
 
 def detalle_estudio(request, id):
     # Obtener el objeto SoilFertility por ID o devolver un error 404 si no existe
     soil_fertility = get_object_or_404(SoilFertility, id=id)
 
+    # Mensaje inicial
+    initial_message = """
+    Este chat será utilizado principalmente por agricultores que consultarán sobre los resultados de estudios de suelos, cultivos, y recomendaciones de riego. Los usuarios te harán preguntas y consultas sobre temas relacionados con la calidad del suelo, cultivos y agua para irrigación. Debes proporcionar respuestas claras, prácticas y alineadas con los estándares de la FAO...
+    """
+
     contexto = {
         'soil_fertility': soil_fertility,
+        'initial_message': initial_message,
     }
 
     return render(request, 'chatbot.html', contexto)

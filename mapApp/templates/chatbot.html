@@ -292,12 +292,85 @@
     // });
   </script>
 
-<script>
-    const chatBody = document.getElementById('chatBody');
-    const chatInput = document.getElementById('chatInput');
+  <script>
 
     // Coloca tu API Key aquí
     const GEMINI_API_KEY = 'AIzaSyARQRlCsBonLaJKFmSurqrYt1RjfF8zhZo';
+
+    const chatBody = document.getElementById('chatBody');
+  const chatInput = document.getElementById('chatInput');
+
+  // Construcción del mensaje inicial
+  const initialMessage = `
+    Información del estudio de suelos:
+    Nombre: {{ soil_fertility.name }}
+    Región: {{ soil_fertility.region }}
+    Fecha del estudio: {{ soil_fertility.date_of_study }}
+
+    Nutrientes:
+    {% if soil_fertility.macronutrients %}
+      Nitrógeno: {{ soil_fertility.macronutrients.nitrogen }}
+      Fósforo: {{ soil_fertility.macronutrients.phosphorus }}
+      Potasio: {{ soil_fertility.macronutrients.potassium }}
+    {% else %}
+      No se han registrado macronutrientes.
+    {% endif %}
+
+    Propiedades Físicas:
+    {% if soil_fertility.physicalproperties %}
+      Textura: {{ soil_fertility.physicalproperties.texture }}
+      Estructura: {{ soil_fertility.physicalproperties.structure }}
+      Permeabilidad: {{ soil_fertility.physicalproperties.permeability }}
+    {% else %}
+      No se han registrado propiedades físicas.
+    {% endif %}
+
+    Materia Orgánica:
+    {% if soil_fertility.organicmatter %}
+      Porcentaje de materia orgánica: {{ soil_fertility.organicmatter.percentage }}
+    {% else %}
+      No se ha registrado materia orgánica.
+    {% endif %}
+
+    pH:
+    {% if soil_fertility.phlevel %}
+      Valor pH: {{ soil_fertility.phlevel.ph_value }}
+      pH en KCl: {{ soil_fertility.phlevel.ph_kcl }}
+    {% else %}
+      No se ha registrado el nivel de pH.
+    {% endif %}
+  `;
+
+  // Función para enviar un mensaje a la API de Gemini
+  function sendMessageToGemini(message) {
+    fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "contents": [{
+          "parts": [{"text": message}]
+        }]
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en la respuesta de la API: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Aquí puedes manejar la respuesta si lo deseas
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
+  // Enviar el mensaje inicial a la IA al cargar la página
+  sendMessageToGemini(initialMessage);
+  
 
     chatInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
