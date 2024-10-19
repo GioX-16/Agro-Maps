@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: "Spartan", sans-serif;
+    font-size: 17px;
+    transition: 0.5s;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to left, rgb(119, 196, 152), #dad9d9);
+}
+
+/* SECTION HEADER */ 
+
+.header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    /* background-color: transparent; */
+    background: linear-gradient(to right, seagreen, #dad9d9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 35px 10%;
+}
+
+.header .logo{
+    cursor: pointer;
+}
+
+.header .logo img{
+    height: 95px;
+    width: auto;
+    transition: all 0.3;
+}
+
+.header .logo img:hover{
+    transform: scale(1.2);
+}
+
+.header .nav-links{
+    list-style: none;
+}
+
+.header .nav-links li{
+    display: inline-block;
+    padding: 0 50px;
+}
+
+.header .nav-links li:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.header .nav-links a{
+    font-size: 700;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.header .nav-links li a:hover{
+    color: rgb(228, 229, 231);
+}
+
+.header .btn button{
+    font-weight: 700;
+    color:rgb(255, 255, 255);
+    padding: 9px 25px;
+    background: seagreen;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.header .btn button:hover{
+    background-color: rgb(62, 83, 245);
+    color: rgb(225, 218, 219);  
+    transform: scale(1.1);
+}
