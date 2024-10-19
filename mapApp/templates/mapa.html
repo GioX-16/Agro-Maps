@@ -185,13 +185,10 @@
         }
 
 		function redirigirConID() {
-            // Obtener el valor del ID desde la etiqueta invisible
             var estudioID = document.getElementById('estudio-id').textContent.trim();
     
-            // Generar la URL con Jinja utilizando un marcador de posición (id)
             var urlDjango = "{% url 'detalle_estudio' 0 %}".replace('0', estudioID);
     
-            // Redirigir al usuario a la URL de Django con el ID
             window.location.href = urlDjango;
         }
 

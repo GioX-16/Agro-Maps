@@ -25,6 +25,31 @@
                 <li class="breadcrumb-item active" aria-current="page">Registro de Estudios de Suelo</li>
             </ol>
         </nav>
+
+        {% if user.is_superuser %}
+            <button id="connectWalletBtn" class="btn btn-primary mb-4">Conectar Wallet</button>
+
+            <!-- Modal para mensaje de wallet conectada -->
+            <div class="modal fade" id="walletConnectedModal" tabindex="-1" role="dialog" aria-labelledby="walletConnectedModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="walletConnectedModalLabel">Conexión Exitosa</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¡Wallet conectada exitosamente!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
         <h2 class="mb-4">Registro de Estudios de Suelo</h2>
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="search-bar" style="flex-grow: 0.2; margin-right: 10px;">
@@ -167,6 +192,65 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script>
+ 
+
+        let web3;
+        let accounts;
+
+        // Conectar a la wallet
+        document.getElementById('connectWalletBtn').addEventListener('click', async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                web3 = new Web3(window.ethereum);
+                try {
+                    accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    console.log('Wallet connected:', accounts[0]);
+
+                    document.getElementById('connectWalletBtn').innerText = `Conectado: ${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`;
+
+                    $('#walletConnectedModal').modal('show');
+                } catch (error) {
+                    console.error('Error connecting wallet', error);
+                }
+            } else {
+                alert('Por favor, instala MetaMask para conectar tu wallet.');
+            }
+        });
+
+        // Enviar estudio a la blockchain
+        async function sendToBlockchain(estudioId) {
+            if (!accounts || accounts.length === 0) {
+                alert('Por favor, conecta tu wallet.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/send-to-blockchain/${estudioId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'  // Importante para seguridad
+                    },
+                    body: JSON.stringify({
+                        account: accounts[0]  // Dirección de la wallet conectada
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(`Estudio enviado a la blockchain. Hash de transacción: ${result.tx_hash}`);
+                } else {
+                    alert(`Error: ${result.error}`);
+                }
+            } catch (error) {
+                console.error('Error enviando estudio a la blockchain', error);
+                alert('Error enviando estudio a la blockchain');
+            }
+        }
+    </script>
+
     
     </body>
     </html>
