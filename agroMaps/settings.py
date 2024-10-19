@@ -92,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'agromaps',
         'USER': 'postgres',
-        'PASSWORD': 'sqlbegin',
-        'HOST': 'localhost',  # o el host que uses
+        'PASSWORD': 'admin-sofia',
+        'HOST': '93.127.216.220',  # o el host que uses
         'PORT': '5432',  # el puerto por defecto de PostgreSQL
         'OPTIONS': {
             'client_encoding': 'UTF8',

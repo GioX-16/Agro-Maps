@@ -78,33 +78,13 @@
             <!-- Tarjeta desplazable con información -->
             <div class="scrollable-card">
                 <div class="card-header">
-                    <h3>Propiedades del Suelo</h3>
-                    <button onclick="openNewTab()" class="btn btn-sm btn-primary float-right">Abrir Detalles</button>
+                    
+                    <button id = "abriranalisisBoton" onclick="redirigirConID()"> Abrir Analisis</button>
 
                 </div>
                 <div class="card-body">
-                    <h4>Propiedades Físicas</h4>
-                    <ul>
-                        <li>Textura: <span>Arenosa</span></li>
-                        <li>Densidad aparente: <span>1.3 g/cm³</span></li>
-                        <li>Permeabilidad: <span>Moderada</span></li>
-                        <li>Retención de agua: <span>60%</span></li>
-                    </ul>
-                    <h4>Macronutrientes</h4>
-                    <ul>
-                        <li>Nitrógeno (N): <span>2%</span></li>
-                        <li>Fósforo (P): <span>0.5%</span></li>
-                        <li>Potasio (K): <span>1%</span></li>
-                        <li>Calcio (Ca): <span>5%</span></li>
-                        <li>Magnesio (Mg): <span>0.8%</span></li>
-                    </ul>
-                    <h4>Micronutrientes</h4>
-                    <ul>
-                        <li>Hierro (Fe): <span>100 ppm</span></li>
-                        <li>Manganeso (Mn): <span>50 ppm</span></li>
-                        <li>Zinc (Zn): <span>30 ppm</span></li>
-                        <li>Cobre (Cu): <span>20 ppm</span></li>
-                    </ul>
+                    <h3 id="spaceholder">Selecciona un Estudio.</h3>
+                    <div id="hudinterior"></div>
                 </div>
             </div>
 
@@ -117,12 +97,6 @@
 	</section>
 	<!-- CONTENT -->
 	
-
-    <script>
-        function openNewTab() {
-            window.open('https://example.com', '_blank');
-        }
-    </script>
 
     <script>
         
@@ -205,6 +179,61 @@
             document.getElementById('search-input').value = city;
             hideDropdown(); // Oculta el dropdown después de seleccionar
         }
+
+        function printinfo(content) {
+            document.getElementById('hudinterior').innerHTML = '<h3>Detalles</h3>' + content;
+        }
+
+		function redirigirConID() {
+            // Obtener el valor del ID desde la etiqueta invisible
+            var estudioID = document.getElementById('estudio-id').textContent.trim();
+    
+            // Generar la URL con Jinja utilizando un marcador de posición (id)
+            var urlDjango = "{% url 'detalle_estudio' 0 %}".replace('0', estudioID);
+    
+            // Redirigir al usuario a la URL de Django con el ID
+            window.location.href = urlDjango;
+        }
+
+
+        //  Script para desactivar el boton de mas detalles de estudio 
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtener el div y el botón
+            var div = document.getElementById("hudinterior");
+            var button = document.getElementById("abriranalisisBoton");
+            var h3 = document.getElementById("spaceholder");
+
+            // Función para verificar el contenido del div y habilitar/deshabilitar el botón
+            function checkContent() {
+                var divContent = div.innerHTML.trim();
+                if (divContent === "") {
+                    button.disabled = true;
+                } else {
+                    button.disabled = false;
+                    h3.remove();
+                }
+            }
+
+            // Crear un observador de mutación para el div
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    // Cada vez que se detecte un cambio, verificar el contenido
+                    checkContent();
+                });
+            });
+
+            // Configurar el observador para escuchar cambios en el contenido del div
+            observer.observe(div, {
+                childList: true, // Detecta cambios en los hijos del div
+                subtree: true,   // Incluye los nodos dentro del div
+                characterData: true // Detecta cambios en el texto del div
+            });
+
+            // Llamar la función inicialmente para verificar el estado inicial
+            checkContent();
+        });
     </script>
+
 </body>
 </html>
