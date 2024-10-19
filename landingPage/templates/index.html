@@ -1,4 +1,5 @@
-{% extends "layout.html" %} {% load static %}
+{% extends "layout.html" %}
+{% load static %}
 
 {% block title %}
 Ecommerce-GX_STORE
@@ -8,29 +9,35 @@ Ecommerce-GX_STORE
     
     <!-- SECTION Home-Video  -->
     <section>
-        <video autoplay loop muted>
+        <video autoplay loop muted controls aria-label="Video mostrando características de AgroMaps">
             <source src="{% static '/Videos/AgroMaps.mp4' %}" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
         </video>
+        <!-- Texto alternativo para el video -->
+        <p>Video de presentación de AgroMaps mostrando sus características más destacadas.</p>
     </section>
 
     <!-- SECTION Banner 1 Nosotros  -->
     <section id="banner" class="section-m1">
-        <h4>¿Que es TrusTrace?</h4>
-        <h2>TyT Es una empresa en linea que se dedica a la
+        <h4>¿Qué es TrusTrace?</h4>
+        <h2>TyT es una empresa en línea que se dedica a la 
             <span>Transabilidad Confiable</span> - en BlockChain</h2>
-        <button class="normal"> VER MAS</button>
+        <button class="normal" aria-label="Ver más sobre TrusTrace">VER MÁS</button>
     </section>
 
     <!-- Section InteractiveMap -->
-    <section id="mapa">
+    <section id="mapa" aria-label="Mapa interactivo de Nicaragua">
         <div class="map-container">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983078.431924583!2d-87.66068603800086!3d12.861028211200027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f10c200ceff22cd%3A0xc8faa7e53fac15b5!2sNicaragua!5e0!3m2!1ses!2sni!4v1724261034935!5m2!1ses!2sni"
                 width="1920" height="450" style="border:0;" allowfullscreen
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa interactivo mostrando Nicaragua en Google Maps">
+            </iframe>
         </div>
+        <!-- Descripción del mapa -->
+        <p>Este mapa muestra la geografía de Nicaragua, incluyendo sus ciudades principales y rutas de acceso.</p>
     </section>
 
 {% endblock %}

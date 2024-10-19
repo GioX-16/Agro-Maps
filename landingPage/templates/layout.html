@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,18 +12,36 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
             rel="stylesheet" />
 
+        <style>
+            /* Estilos para el estado de enfoque */
+            a:focus, button:focus, input:focus {
+                outline: 3px solid #005fcb; /* Color visible */
+                outline-offset: 4px; /* Espaciado del borde */
+            }
+
+            /* Para asegurar mejor estilo cuando se navega con teclado */
+            a:focus-visible, button:focus-visible, input:focus-visible {
+                outline: 3px solid #005fcb;
+                outline-offset: 4px;
+            }
+
+            /* Mejorar visibilidad de enlaces en el footer */
+            .red-social a:focus-visible {
+                outline: 2px solid #ff6600; /* Color para redes sociales */
+                outline-offset: 2px;
+            }
+        </style>
     </head>
     <body>
 
         <!-- SECTION Header -->
-
         <section class="home" id="home1">
 
             <header class="header">
                 <div class="logo">
-                    <img src="{% static '/imgs/AgroMps-1.png' %}" alt="logo de la marca">
+                    <img src="{% static '/imgs/AgroMps-1.png' %}" alt="Logo de AgroMps">
                 </div>
-                <nav>
+                <nav aria-label="Menú de navegación principal">
                     <ul class="nav-links">
                         <li><a href="#home1">Inicio</a></li>
                         <li><a href="#banner">Nosotros</a></li>
@@ -33,18 +51,20 @@
                     </ul>
                 </nav>
                 {% if user.is_authenticated %}
-                <a class="btn" href="{% url 'logout' %}"><button>Logout</button></a>
+                <a class="btn" href="{% url 'logout' %}">
+                    <button aria-label="Cerrar sesión">Logout</button>
+                </a>
                 {% else %}
-                <a class="btn" href="{% url 'login' %}"><button>Login</button></a>
+                <a class="btn" href="{% url 'login' %}">
+                    <button aria-label="Iniciar sesión">Login</button>
+                </a>
                 {% endif %}
             </header>
         </section>
 
-
         {% block content %}
         <!-- contenido de la pagina -->
         {% endblock %}
-
 
         <!-- Section Footer -->
         <footer class="footer1">
@@ -52,7 +72,7 @@
                 <div class="box">
                     <figure>
                         <a href="#">
-                            <img src="{% static '/imgs/UNVAL2.png' %}" alt="logo de UVAL">
+                            <img src="{% static '/imgs/UNVAL2.png' %}" alt="Logo de Universe">
                         </a>
                     </figure>
                 </div>
@@ -66,32 +86,31 @@
                 <div class="box">
                     <h2>SIGUENOS EN REDES</h2>
                     <div class="red-social">
-                        <a target="noopener"
-                            href="https://www.instagram.com/gio_sanx/?hl=es-es"><i
-                                class="fa-brands fa-square-instagram"></i></a>
-                        <a target="noopener"
-                            href="https://www.facebook.com/g2.giox1"><i
-                                class="fa-brands fa-square-facebook"></i></a>
-                        <a target="noopener" href="https://x.com/sandinoG1X"><i
-                                class="fa-brands fa-square-x-twitter"></i></a>
-                        <a target="noopener"
-                            href="https://github.com/GioX-16"><i
-                                class="fa-brands fa-square-github"></i></a>
-                        <a target="noopener"
-                            href="https://www.threads.net/@gio_sanx"><i
-                                class="fa-brands fa-square-threads"></i></a>
+                        <a target="noopener" href="https://www.instagram.com/gio_sanx/?hl=es-es" aria-label="Visitar perfil de Instagram de GioX">
+                            <i class="fa-brands fa-square-instagram"></i>
+                        </a>
+                        <a target="noopener" href="https://www.facebook.com/g2.giox1" aria-label="Visitar perfil de Facebook de GioX">
+                            <i class="fa-brands fa-square-facebook"></i>
+                        </a>
+                        <a target="noopener" href="https://x.com/sandinoG1X" aria-label="Visitar perfil de X (antes Twitter) de GioX">
+                            <i class="fa-brands fa-square-x-twitter"></i>
+                        </a>
+                        <a target="noopener" href="https://github.com/GioX-16" aria-label="Visitar perfil de GitHub de GioX">
+                            <i class="fa-brands fa-square-github"></i>
+                        </a>
+                        <a target="noopener" href="https://www.threads.net/@gio_sanx" aria-label="Visitar perfil de Threads de GioX">
+                            <i class="fa-brands fa-square-threads"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="grupo-2">
-                <samp>&copy; 2024 <b>UNI-VERSE-ALL</b> Todos los derechos
-                    Reservados</samp>
+                <samp>&copy; 2024 <b>UNI-VERSE-ALL</b> Todos los derechos Reservados</samp>
             </div>
         </footer>
 
         <!-- LINK DE LOS ICONOS -->
-        <script src="https://kit.fontawesome.com/001e655f1c.js"
-            crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/001e655f1c.js" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="{% static 'JavaScripts/index.js' %}">
     </body>
