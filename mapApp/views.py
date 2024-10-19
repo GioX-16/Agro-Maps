@@ -130,10 +130,10 @@ def mapa_fertilidad_view(request):
 
         ### Procesamiento de pH del suelo
         phInfo = ""
-        if hasattr(bdRegistro, 'ph_level'):
+        if hasattr(bdRegistro, 'phlevel'):
             phInfo = f"""
             <strong>pH del suelo:</strong><br>
-            Valor de pH: {bdRegistro.ph_level.ph_value}<br><br>
+            Valor de pH: {bdRegistro.phlevel.ph_value}<br><br>
             """
 
         # Crear marcador con popup dinámico para pH
@@ -184,4 +184,17 @@ def detalle_estudio(request, id):
     estudio = get_object_or_404(SoilFertility, id=id)
     
     # Renderizar una plantilla con los detalles del estudio
-    return render(request, 'detalle_estudio.html', {'estudio': estudio})
+    return render(request, 'chatbot.html', {'estudio': estudio})
+
+
+
+def detalle_estudio(request, id):
+    # Obtener el objeto SoilFertility por ID o devolver un error 404 si no existe
+    soil_fertility = get_object_or_404(SoilFertility, id=id)
+
+    contexto = {
+        'soil_fertility': soil_fertility,
+    }
+
+    return render(request, 'chatbot.html', contexto)
+

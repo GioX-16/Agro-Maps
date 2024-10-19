@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot con Vista Dividida</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: seagreen;
+      color: white;
+    }
+
+    .navbar .logo {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .navbar .logo img {
+      height: 60px;
+      width: auto;
+    }
+
+    .navbar .menu button {
+      background-color: seagreen;
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar .menu button:hover {
+      background-color: #2e8b57;
+    }
+
+    /* Contenedor Principal */
+    .main-content {
+      display: flex;
+      height: calc(100% - 60px); /* Altura del navbar restada */
+    }
+
+    .left-panel {
+      width: 30%;
+      background-color: #f8f8f8;
+      padding: 20px;
+      border-right: 2px solid #ccc;
+      overflow-y: auto;
+    }
+
+    .right-panel {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fichas Desplegables */
+    .collapsible {
+      background-color: seagreen;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      text-align: left;
+      outline: none;
+      margin-bottom: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .collapsible:hover {
+      background-color: #2356a3;
+    }
+
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: white;
+      padding: 0 15px;
+      border-radius: 5px;
+    }
+
+    .active .content {
+      max-height: 200px;
+    }
+
+    /* Chatbox */
+    .chat-box {
+      background-color: white;
+      flex-grow: 1;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow-y: auto;
+    }
+
+    .chat-footer {
+      padding: 10px;
+      background-color: #e9ecef;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .chat-footer input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .message {
+      margin-bottom: 15px;
+    }
+
+    .message.user-message {
+      text-align: right;
+    }
+
+    .message.bot-message {
+      text-align: left;
+    }
+
+    .message-content {
+      display: inline-block;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: white;
+      max-width: 70%;
+    }
+
+    .message.user-message .message-content {
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="menu"></div>
+    <div class="logo">
+      <img src="../static/assets/img/agromaps_logo.png" alt="Logo">
+    </div>
+    <div class="menu">
+      <button>REGRESAR</button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Panel Izquierdo (Fichas Desplegables) -->
+    <!-- <div class="left-panel">
+      <div class="card">
+        <h3>NUTRIENTES</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      </div>
+
+      <button class="collapsible">PROPIEDADES FISICAS</button>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      </div>
+
+      <button class="collapsible">MATERIAL ORGANICO</button>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      </div>
+
+      <button class="collapsible">GRUPOS</button>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      </div>
+    </div> -->
+
+    <!-- Panel Izquierdo (Fichas Desplegables) -->
+    <div class="left-panel">
+      <div class="card">
+          <h3>{{ soil_fertility.name }}</h3>
+          <p>Estudio de la región: {{ soil_fertility.region }}</p>
+          <p>Fecha del estudio: {{ soil_fertility.date_of_study }}</p>
+      </div>
+  
+      <button class="collapsible">Nutrientes</button>
+      <div class="content">
+          {% if soil_fertility.macronutrients %}
+              <p>Nitrógeno: {{ soil_fertility.macronutrients.nitrogen }}</p>
+              <p>Fósforo: {{ soil_fertility.macronutrients.phosphorus }}</p>
+              <p>Potasio: {{ soil_fertility.macronutrients.potassium }}</p>
+          {% else %}
+              <p>No se han registrado macronutrientes.</p>
+          {% endif %}
+      </div>
+  
+      <button class="collapsible">Propiedades Físicas</button>
+      <div class="content">
+          {% if soil_fertility.physicalproperties %}
+              <p>Textura: {{ soil_fertility.physicalproperties.texture }}</p>
+              <p>Estructura: {{ soil_fertility.physicalproperties.structure }}</p>
+              <p>Permeabilidad: {{ soil_fertility.physicalproperties.permeability }}</p>
+          {% else %}
+              <p>No se han registrado propiedades físicas.</p>
+          {% endif %}
+      </div>
+  
+      <button class="collapsible">Materia Orgánica</button>
+      <div class="content">
+          {% if soil_fertility.organicmatter %}
+              <p>Porcentaje de materia orgánica: {{ soil_fertility.organicmatter.percentage }}</p>
+          {% else %}
+              <p>No se ha registrado materia orgánica.</p>
+          {% endif %}
+      </div>
+  
+      <button class="collapsible">pH</button>
+      <div class="content">
+          {% if soil_fertility.phlevel %}
+              <p>Valor pH: {{ soil_fertility.phlevel.ph_value }}</p>
+              <p>pH en KCl: {{ soil_fertility.phlevel.ph_kcl }}</p>
+          {% else %}
+              <p>No se ha registrado el nivel de pH.</p>
+          {% endif %}
+      </div>
+  </div>
+
+    <!-- Panel Derecho (Chatbot) -->
+    <div class="right-panel">
+      <div class="chat-box" id="chatBody">
+        <div class="message bot-message">
+          <div class="message-content">¡Hola! ¿En qué puedo ayudarte hoy?</div>
+        </div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" placeholder="Escribe un mensaje..." id="chatInput">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Script para fichas desplegables
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        content.style.maxHeight ? content.style.maxHeight = null : content.style.maxHeight = content.scrollHeight + "px";
+      });
+    }
+
+    // const chatBody = document.getElementById('chatBody');
+    // const chatInput = document.getElementById('chatInput');
+
+    // chatInput.addEventListener('keypress', function (e) {
+    //   if (e.key === 'Enter') {
+    //     const userMessage = chatInput.value.trim();
+    //     if (userMessage) {
+    //       const userMessageElement = document.createElement('div');
+    //       userMessageElement.classList.add('message', 'user-message');
+    //       userMessageElement.innerHTML = `<div class="message-content">${userMessage}</div>`;
+    //       chatBody.appendChild(userMessageElement);
+    //       chatBody.scrollTop = chatBody.scrollHeight;
+    //       chatInput.value = '';  // Clear input after sending message
+
+    //       // Simulate bot response
+    //       setTimeout(() => {
+    //         const botMessageElement = document.createElement('div');
+    //         botMessageElement.classList.add('message', 'bot-message');
+    //         botMessageElement.innerHTML = `<div class="message-content">Esto es una respuesta simulada del chatbot.</div>`;
+    //         chatBody.appendChild(botMessageElement);
+    //         chatBody.scrollTop = chatBody.scrollHeight;
+    //       }, 1000);
+    //     }
+    //   }
+    // });
+  </script>
+
+<script>
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+
+    // Coloca tu API Key aquí
+    const GEMINI_API_KEY = 'AIzaSyARQRlCsBonLaJKFmSurqrYt1RjfF8zhZo';
+
+    chatInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        const userMessage = chatInput.value.trim();
+        if (userMessage) {
+          // Añadir mensaje del usuario
+          const userMessageElement = document.createElement('div');
+          userMessageElement.classList.add('message', 'user-message');
+          userMessageElement.innerHTML = `<div class="message-content">${userMessage}</div>`;
+          chatBody.appendChild(userMessageElement);
+          chatBody.scrollTop = chatBody.scrollHeight;
+
+          // Hacer la solicitud a la API de Gemini
+          fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              "contents": [{
+                "parts": [{"text": userMessage}]
+              }]
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error en la respuesta de la API: ' + response.status);
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Verificar si hay candidatos y partes en la respuesta
+            if (data.candidates && data.candidates.length > 0) {
+              const botMessage = data.candidates[0].content.parts[0].text;
+              const botMessageElement = document.createElement('div');
+              botMessageElement.classList.add('message', 'bot-message');
+              botMessageElement.innerHTML = `<div class="message-content">${botMessage}</div>`;
+              chatBody.appendChild(botMessageElement);
+              chatBody.scrollTop = chatBody.scrollHeight;
+            } else {
+              throw new Error('Respuesta de la API no tiene contenido.');
+            }
+          })
+          .catch(error => {
+            const errorMessageElement = document.createElement('div');
+            errorMessageElement.classList.add('message', 'bot-message');
+            errorMessageElement.innerHTML = `<div class="message-content">Error: ${error.message}</div>`;
+            chatBody.appendChild(errorMessageElement);
+            chatBody.scrollTop = chatBody.scrollHeight;
+          });
+
+          // Limpiar el campo de entrada
+          chatInput.value = '';
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
